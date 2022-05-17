@@ -1,9 +1,11 @@
+import AddTodoModal from '../AddTodo/AddTodoModal';
 import Header from '../Header/Header';
 
 const TodoApp = () => {
 	return (
 		<>
-			<Header />;
+			<Header />
+			<AddTodoModal />
 		</>
 	);
 };
