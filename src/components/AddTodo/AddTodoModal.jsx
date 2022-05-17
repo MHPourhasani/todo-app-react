@@ -1,7 +1,18 @@
 import { useState } from 'react';
 
-function AddTodoModal() {
+function AddTodoModal({ addTodoHandler }) {
 	const [showModal, setShowModal] = useState(false);
+	const [inputValue, setInputValue] = useState('');
+
+	const changeHandler = (e) => {
+		setInputValue(e.target.value.trim());
+	};
+
+	const submitHandler = (e) => {
+		e.preventDefault();
+		addTodoHandler(inputValue);
+		setInputValue('');
+	};
 
 	return (
 		<section className='w-full'>
@@ -13,7 +24,7 @@ function AddTodoModal() {
 			</button>
 
 			{showModal ? (
-				<section className='w-11/12'>
+				<form onSubmit={submitHandler} className='w-11/12'>
 					<div className='fixed inset-0 z-50 flex w-full items-center justify-center overflow-y-auto overflow-x-hidden outline-none focus:outline-none'>
 						<div className='relative my-6 mx-auto w-11/12 max-w-3xl'>
 							<div className='relative flex w-full flex-col rounded-lg border-0 bg-white shadow-lg outline-none focus:outline-none'>
@@ -25,6 +36,7 @@ function AddTodoModal() {
 									<label className='mb-1 font-semibold '>Todo Title</label>
 									<input
 										type='text'
+										onChange={changeHandler}
 										placeholder='Todo Title ...'
 										className='my-1 w-full rounded-md border-2 border-violet-500 py-1 pl-2 text-sm leading-relaxed text-slate-500 outline-none'
 									/>
@@ -40,8 +52,9 @@ function AddTodoModal() {
 
 									<button
 										className='mr-1 mb-1 rounded bg-violet-500 px-4 py-2 text-sm font-bold uppercase text-white shadow outline-none transition-all duration-150 ease-linear hover:shadow-lg focus:outline-none active:bg-emerald-600'
-										type='button'
-										onClick={() => setShowModal(false)}>
+										type='submit'
+										// onClick={() => setShowModal(false)}
+										>
 										Add Todo
 									</button>
 								</div>
@@ -49,7 +62,7 @@ function AddTodoModal() {
 						</div>
 					</div>
 					<div className='fixed inset-0 z-40 bg-black opacity-25'></div>
-				</section>
+				</form>
 			) : null}
 		</section>
 	);
