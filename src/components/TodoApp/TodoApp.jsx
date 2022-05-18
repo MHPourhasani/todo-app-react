@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import AddTodoModal from '../AddTodo/AddTodoModal';
 import Header from '../Header/Header';
+import TodoCompleted from '../TodoList/TodoCompleted';
 import TodoList from '../TodoList/TodoList';
 
 const TodoApp = () => {
@@ -14,14 +15,24 @@ const TodoApp = () => {
 		};
 		setTodos([...todos, newTodo]);
 	};
-	console.log(todos);
+
+	const completeTodoHandler = (id) => {
+		const index = todos.findIndex((todo) => todo.id === id);
+		const selectedTodo = { ...todos[index] };
+		selectedTodo.isCompleted = !selectedTodo.isCompleted;
+
+		const updatedTodos = [...todos];
+		updatedTodos[index] = selectedTodo;
+		setTodos(updatedTodos);
+	};
 
 	return (
-		<>
+		<section className='flex w-full flex-col items-center justify-center'>
 			<Header />
 			<AddTodoModal addTodoHandler={addTodoHandler} />
-			<TodoList todos={todos} />
-		</>
+			<TodoList todos={todos} onComplete={completeTodoHandler} />
+			<TodoCompleted todos={todos} onComplete={completeTodoHandler} />
+		</section>
 	);
 };
 
