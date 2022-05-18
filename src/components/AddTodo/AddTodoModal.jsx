@@ -1,67 +1,79 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 function AddTodoModal({ addTodoHandler }) {
 	const [showModal, setShowModal] = useState(false);
 	const [inputValue, setInputValue] = useState('');
 
+	const inputRef = useRef(null);
+
+	useEffect(() => {
+		// inputRef.current.focus();
+	}, []);
+
+	useEffect(() => {}, [showModal]);
+
 	const changeHandler = (e) => {
-		setInputValue(e.target.value.trim());
+		setInputValue(e.target.value);
 	};
 
 	const submitHandler = (e) => {
 		e.preventDefault();
-		addTodoHandler(inputValue);
-		setInputValue('');
+		if (inputValue) {
+			addTodoHandler(inputValue);
+			setInputValue('');
+		} else {
+			<p className='text-red-600'>Invalid Value ...</p>;
+		}
 	};
 
 	return (
 		<section className='w-full'>
 			<button
-				className='absolute bottom-5 right-5 h-8 w-8 rounded bg-violet-500 text-sm font-bold uppercase text-white shadow outline-none transition-all duration-150 ease-linear hover:shadow-lg focus:bg-violet-600 focus:outline-none active:bg-violet-600'
+				className='fixed bottom-5 right-5 h-8 w-8 rounded bg-violet-500 text-sm font-bold uppercase text-white shadow outline-none transition-all duration-150 ease-linear hover:shadow-lg focus:bg-violet-600 focus:outline-none active:bg-violet-600 sm:h-11 sm:w-11 md:text-lg'
 				type='button'
 				onClick={() => setShowModal(true)}>
 				+
 			</button>
 
 			{showModal ? (
-				<form onSubmit={submitHandler} className='w-11/12'>
-					<div className='fixed inset-0 z-50 flex w-full items-center justify-center overflow-y-auto overflow-x-hidden outline-none focus:outline-none'>
+				<form
+					onSubmit={submitHandler}
+					className='flex w-11/12 flex-col items-start justify-center'>
+					<div className='fixed inset-0 z-50 mx-auto flex w-full items-center justify-center overflow-y-auto overflow-x-hidden outline-none focus:outline-none sm:w-8/12'>
 						<div className='relative my-6 mx-auto w-11/12 max-w-3xl'>
-							<div className='relative flex w-full flex-col rounded-lg border-0 bg-white shadow-lg outline-none focus:outline-none'>
-								<div className='flex items-start justify-between rounded-t border-slate-200 px-5 pt-5'>
-									<h3 className='text-xl font-bold'>Add Todo</h3>
-								</div>
+							<div className='relative flex w-full flex-col justify-center rounded-lg border-0 bg-white shadow-lg outline-none focus:outline-none'>
+								<h3 className='px-5 pt-5 text-xl font-bold'>Add Todo</h3>
 
-								<div className='relative flex flex-auto flex-col p-6'>
+								<div className='relative flex flex-auto flex-col p-6 pb-0'>
 									<label className='mb-1 font-semibold '>Todo Title</label>
 									<input
 										type='text'
+										ref={inputRef}
 										onChange={changeHandler}
 										placeholder='Todo Title ...'
-										className='my-1 w-full rounded-md border-2 border-violet-500 py-1 pl-2 text-sm leading-relaxed text-slate-500 outline-none'
+										className='my-1 w-full rounded-md border-2 border-gray-400 py-1 pl-2 text-sm leading-relaxed text-slate-500 outline-none focus:border-violet-500 sm:py-2'
 									/>
 								</div>
 
-								<div className='flex items-center justify-end rounded-b p-6'>
+								<section className='flex items-center justify-end rounded-b p-6'>
 									<button
-										className='background-transparent mr-1 mb-1 px-6 py-2 text-sm font-bold uppercase text-red-500 outline-none transition-all duration-150 ease-linear focus:outline-none'
+										className='background-transparent mr-1 mb-1 px-6 py-2 text-xs font-bold uppercase text-red-500 outline-none transition-all duration-150 ease-linear focus:outline-none sm:py-3 sm:text-xs'
 										type='button'
 										onClick={() => setShowModal(false)}>
 										Close
 									</button>
 
 									<button
-										className='mr-1 mb-1 rounded bg-violet-500 px-4 py-2 text-sm font-bold uppercase text-white shadow outline-none transition-all duration-150 ease-linear hover:shadow-lg focus:outline-none active:bg-emerald-600'
+										className='mr-1 mb-1 rounded bg-violet-500 px-3 py-2 text-xs font-bold uppercase text-white shadow outline-none transition-all duration-150 ease-linear hover:shadow-lg focus:outline-none active:bg-violet-600 sm:px-4 sm:py-3 sm:text-xs'
 										type='submit'
-										// onClick={() => setShowModal(false)}
-										>
+										onClick={() => setShowModal(false)}
+									>
 										Add Todo
 									</button>
-								</div>
+								</section>
 							</div>
 						</div>
 					</div>
-					<div className='fixed inset-0 z-40 bg-black opacity-25'></div>
 				</form>
 			) : null}
 		</section>
