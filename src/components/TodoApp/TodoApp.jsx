@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import AddTodoModal from '../AddTodo/AddTodoModal';
 import Header from '../Header/Header';
-import TodoCompleted from '../TodoList/TodoCompleted';
 import TodoList from '../TodoList/TodoList';
 
 const TodoApp = () => {
@@ -31,7 +30,6 @@ const TodoApp = () => {
 			<Header />
 			<AddTodoModal addTodoHandler={addTodoHandler} />
 			<TodoList todos={todos} onComplete={completeTodoHandler} />
-			<TodoCompleted todos={todos} onComplete={completeTodoHandler} />
 		</section>
 	);
 };
