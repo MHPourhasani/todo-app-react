@@ -50,7 +50,8 @@ const TodoApp = () => {
 				todos={todos}
 				onComplete={completeTodoHandler}
 				onDelete={deleteTodoHandler}
-				unCompletedTodo={todos.filter((todo) => !todo.isCompleted).length}
+				unCompletedTodo={todos.filter((todo) => !todo.isCompleted)}
+				completedTodo={todos.filter((todo) => todo.isCompleted)}
 			/>
 		</section>
 	);
