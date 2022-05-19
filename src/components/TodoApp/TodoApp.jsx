@@ -25,11 +25,17 @@ const TodoApp = () => {
 		setTodos(updatedTodos);
 	};
 
+	const deleteTodoHandler = (id) => {
+		console.log(id);
+		const removeTodo = todos.filter((todo) => todo.id !== id);
+		setTodos(removeTodo);
+	};
+
 	return (
 		<section className='flex w-full flex-col items-center justify-center'>
 			<Header />
 			<AddTodoModal addTodoHandler={addTodoHandler} />
-			<TodoList todos={todos} onComplete={completeTodoHandler} />
+			<TodoList todos={todos} onComplete={completeTodoHandler} onDelete={deleteTodoHandler} />
 		</section>
 	);
 };

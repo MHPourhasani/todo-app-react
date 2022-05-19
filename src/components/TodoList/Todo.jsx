@@ -1,7 +1,7 @@
 import { BiTrashAlt } from 'react-icons/bi';
 import { FiEdit, FiSquare, FiCheckSquare } from 'react-icons/fi';
 
-const Todo = ({ todo, onComplete }) => {
+const Todo = ({ todo, onComplete, onDelete }) => {
 	return (
 		<section
 			className={`my-3 flex items-center justify-between rounded-md bg-gray-100 px-2 py-3 shadow-md sm:py-4 ${
@@ -22,10 +22,11 @@ const Todo = ({ todo, onComplete }) => {
 			</section>
 
 			<section className='flex items-center justify-center'>
-				<button className='mr-1 text-gray-600'>
+				<button className='mr-1 text-gray-500 hover:text-gray-600'>
 					<FiEdit className='sm:h-5 sm:w-5' />
 				</button>
-				<button className='ml-1 text-red-600'>
+
+				<button onClick={onDelete} className='ml-1 text-red-500 hover:text-red-600'>
 					<BiTrashAlt className='sm:h-5 sm:w-5' />
 				</button>
 			</section>
