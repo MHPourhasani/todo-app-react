@@ -8,7 +8,7 @@ const TodoList = ({ todos, onComplete, onDelete, unCompletedTodo, completedTodo,
 	const renderTodos = () => {
 		if (todos.length === 0) {
 			return (
-				<p className='mx-4 my-5 w-11/12 rounded-md bg-violet-300 py-2 px-4 text-sm sm:mx-8 sm:w-8/12 sm:py-3 lg:w-1/2'>
+				<p className='mx-4 my-5 w-11/12 rounded-md bg-violet-300 py-2 px-4 text-sm sm:mx-4 sm:w-9/12 sm:py-3 md:w-7/12 lg:w-1/2'>
 					Please Add Your Todos ...
 				</p>
 			);
